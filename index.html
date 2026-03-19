@@ -224,6 +224,30 @@
     <div id="loader" class="loader" style="display: none;"></div>
 
     <!-- JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("ykzcqKVqRiODG9bcE"); // your EmailJS user ID
+  })();
+
+  // Newsletter form submission
+  document.getElementById("newsletterForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let params = {
+      user_email: document.getElementById("newsletter-email").value
+    };
+
+    emailjs.send("service_e4fqgjg", "template_5nywd1n", params) // template ID for subscription email
+      .then(function() {
+        document.getElementById("newsletter-feedback").innerHTML = "✅ Subscription successful! Check your email.";
+        document.getElementById("newsletterForm").reset(); // reset form
+      }, function(error) {
+        console.error("EmailJS Error:", error);
+        document.getElementById("newsletter-feedback").innerHTML = "❌ Failed. Try again.";
+      });
+  });
+</script>
     <script src="js/script.js"></script>
 </body>
 </html>
